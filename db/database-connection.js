@@ -6,4 +6,4 @@ mongoose.connect( 'mongodb://localhost:27017/Janines_Gym', { useNewUrlParser: tr
 // mongoose.set('useCreateIndex', true);
 // mongoose.set('useFindAndModify', false);
 
-module.exports = {mongoose} 
+module.exports = {mongoose}
