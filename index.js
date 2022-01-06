@@ -11,6 +11,7 @@ app.use(bodyParser.json());
 
 const { mongoose } = require('./db/database-connection');
 const {Client} = require('./models/client');
+const {Dieta} = require('./models/dieta');
 
 app.get('/', (req,res) => {
     res.send('API Funcionando Correctamente')
@@ -56,6 +57,26 @@ app.post('/cliente-delete', (req,res) => {
 
 app.post('/login', (req,res) => {
     Client.findOne({"username" : req.body.username}).then(response => {
+        res.send(response)
+    })
+})
+
+//Registro de Dieta
+app.post('/dieta-registro', (req,res) => {
+    Dieta.create(req.body, err => {
+        err ? res.sendStatus(500) : ''
+    })
+    res.sendStatus(200)
+})
+
+app.get('/dietas', (req,res) => {
+    Dieta.find().then(response => {
+        res.send(response)
+    })
+})
+
+app.post('/dieta-user', (req,res) => {
+    Dieta.findOne({'user': req.body.user}).then(response => {
         res.send(response)
     })
 })
