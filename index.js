@@ -63,6 +63,10 @@ app.post('/login', (req,res) => {
 
 //Registro de Dieta
 app.post('/dieta-registro', (req,res) => {
+    let fecha = new Date().toLocaleString("en-US", {timeZone: "America/Guayaquil"})
+    console.log(fecha)
+    let date = fecha.split(',')
+    req.body.fecha = date[0]
     Dieta.create(req.body, err => {
         err ? res.sendStatus(500) : ''
     })
@@ -71,6 +75,14 @@ app.post('/dieta-registro', (req,res) => {
 
 app.get('/dietas', (req,res) => {
     Dieta.find().then(response => {
+        res.send(response)
+    })
+})
+
+// Filtro de dietas
+app.post('/find-dieta', (req,res) => {
+    console.log(req.body)
+    Dieta.find({"fecha" : req.body.fecha, "q1" : req.body.dieta}).then(response => {
         res.send(response)
     })
 })
